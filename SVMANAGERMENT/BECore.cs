@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SVMANAGERMENT
 {
-    static class BeCore
+    public class BeCore
     {
         public static SqlConnection ketnoi;
         public static SqlCommand cmd;
@@ -170,11 +170,14 @@ namespace SVMANAGERMENT
             long age = (long)(ts.Days / 365);
             return age;
         }
-        public static int ThemSV(string masv ,string tensv, string hodem, string ngaysinh, string diachi, string sdt, string malop, string makhoa)
+        public static int ThemSV(string masv, string tensv, string hodem, DateTime ngaysinh, string diachi, string sdt, string malop, string makhoa)
         {
             if (CheckMa(masv) == 1) return 0;
+            else if (TinhTuoi(ngaysinh, DateTime.Now) < 18 || TinhTuoi(ngaysinh, DateTime.Now) > 26) return -1;
+            else if (masv == "" || tensv == "" || hodem == "" || diachi == "" || sdt == "" || malop == "" || makhoa == "") return 99;
             else
             {
+                string ngay = ngaysinh.ToString("dd/MM/yyyy");
                 ketnoi = new SqlConnection(sqlconnect);
                 ketnoi.Open();
                 cmd = new SqlCommand("them_sv", ketnoi);
@@ -182,7 +185,7 @@ namespace SVMANAGERMENT
                 cmd.Parameters.Add(new SqlParameter("@masv", masv));
                 cmd.Parameters.Add(new SqlParameter("@tensv", tensv));
                 cmd.Parameters.Add(new SqlParameter("@hodem", hodem));
-                cmd.Parameters.Add(new SqlParameter("@ngaysinh", ngaysinh));
+                cmd.Parameters.Add(new SqlParameter("@ngaysinh", ngay));
                 cmd.Parameters.Add(new SqlParameter("@diachi", diachi));
                 cmd.Parameters.Add(new SqlParameter("@malop", malop));
                 cmd.Parameters.Add(new SqlParameter("@makhoa", makhoa));

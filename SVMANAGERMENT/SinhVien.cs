@@ -28,7 +28,7 @@ namespace SVMANAGERMENT
         }
         private void GetKhoa()
         {
-            DataSet rs= BeCore.getKhoa();
+            DataSet rs = BeCore.getKhoa();
             QLSV_cbKhoa.DataSource = rs.Tables["Khoa"];
             QLSV_cbKhoa.DisplayMember = "TenKhoa";
             QLSV_cbKhoa.ValueMember = "MaKhoa";
@@ -70,38 +70,28 @@ namespace SVMANAGERMENT
         }
         private void QLSV_btnThem_Click(object sender, EventArgs e)
         {
-            long age = BeCore.TinhTuoi(QLSV_date.Value, DateTime.Now);
-            if (QLSV_txtDiaChi.Text == "" || QLSV_txtHodem.Text == "" || QLSV_txtMASV.Text == "" || QLSV_txtSDT.Text == "" || QLSV_txtTen.Text == "")
+            int rs = BeCore.ThemSV(QLSV_txtMASV.Text, QLSV_txtTen.Text, QLSV_txtHodem.Text, QLSV_date.Value, QLSV_txtDiaChi.Text, QLSV_txtSDT.Text, QLSV_cbLop.SelectedValue.ToString(), QLSV_cbKhoa.SelectedValue.ToString());
+            if (rs == 1)
             {
-                newMessBox.Show("Bạn phải điền đầy đủ thông tin sinh viên", "Lỗi Thêm Thông Tin", MessageBoxButtons.OK);
+                newMessBox.Show(" Thêm Sinh Viên mã: " + QLSV_txtMASV.Text + " thành công", "Thành Công", MessageBoxButtons.OK);
+                DataLop();
+                ClearText();
+
             }
-            else if(age < 18 || age > 26)
+            else if (rs == -1)
             {
                 newMessBox.Show("Tuổi sinh viên không hợp lệ (18 - 26)", "Lỗi Thêm Thông Tin", MessageBoxButtons.OK);
-
             }
-            else
+            else if (rs == 0)
             {
-                string ngaysinh = QLSV_date.Value.Date.ToString("dd/MM/yyyy");
-                int rs = BeCore.ThemSV(QLSV_txtMASV.Text, QLSV_txtTen.Text, QLSV_txtHodem.Text, ngaysinh, QLSV_txtDiaChi.Text, QLSV_txtSDT.Text, QLSV_cbLop.SelectedValue.ToString(), QLSV_cbKhoa.SelectedValue.ToString());
-                if(rs == 1)
-                {
-                    newMessBox.Show(" Thêm Sinh Viên mã: " + QLSV_txtMASV.Text + " thành công", "Thành Công", MessageBoxButtons.OK);
-                    DataLop();
-                    ClearText();
-
-                }
-                else if(rs == 0)
-                {
-                    newMessBox.Show(" mã: " + QLSV_txtMASV.Text + " bị trùng", "Lỗi", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    newMessBox.Show(" Thêm Sinh Viên mã: " + QLSV_txtMASV.Text + " Thất Bại", "Lỗi", MessageBoxButtons.OK);
-                    ClearText();
-                }
-
+                newMessBox.Show(" mã: " + QLSV_txtMASV.Text + " bị trùng", "Lỗi", MessageBoxButtons.OK);
             }
+            else if (rs == 99)
+            {
+                newMessBox.Show("Bạn phải điền đầy đủ thông tin sinh viên", "Lỗi Thêm Thông Tin", MessageBoxButtons.OK);
+                ClearText();
+            }
+
         }
 
         private void QLSV_dgvSV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -118,7 +108,7 @@ namespace SVMANAGERMENT
                 QLSV_txtHodem.Text = QLSV_dgvSV.Rows[index].Cells["Họ Đệm"].Value.ToString();
                 QLSV_txtTen.Text = QLSV_dgvSV.Rows[index].Cells["Tên"].Value.ToString();
                 DateTime date = DateTime.ParseExact(QLSV_dgvSV.Rows[index].Cells["Ngày Sinh"].Value.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                QLSV_date.Value = date ;
+                QLSV_date.Value = date;
                 QLSV_txtDiaChi.Text = QLSV_dgvSV.Rows[index].Cells["Địa Chỉ"].Value.ToString();
                 QLSV_txtSDT.Text = QLSV_dgvSV.Rows[index].Cells["SĐT"].Value.ToString();
             }
@@ -144,7 +134,7 @@ namespace SVMANAGERMENT
                     newMessBox.Show(" Xóa sinh viên mã: " + QLSV_txtMASV.Text + " Thất Bại", "Lỗi", MessageBoxButtons.OK);
                 }
             }
-            
+
         }
 
         private void QLSV_btnSua_Click(object sender, EventArgs e)
@@ -189,7 +179,7 @@ namespace SVMANAGERMENT
             QLSV_dgvSV.DataSource = null;
             string tenlop = QLSV_cbLop.SelectedValue.ToString();
             string tensv = QLSV_txtTimKiem.Text;
-            DataSet rs = BeCore.TimSV(tensv,tenlop);
+            DataSet rs = BeCore.TimSV(tensv, tenlop);
             QLSV_dgvSV.DataSource = rs.Tables["SV"];
         }
     }

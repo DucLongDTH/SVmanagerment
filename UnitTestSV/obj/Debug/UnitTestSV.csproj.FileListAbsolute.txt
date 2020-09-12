@@ -1,0 +1,17 @@
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\UnitTestSV.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\UnitTestSV.pdb
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\SVMANAGERMENT.exe
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\SVMANAGERMENT.pdb
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\SVMANAGERMENT.exe.config
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\obj\Debug\UnitTestSV.csprojAssemblyReference.cache
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\obj\Debug\UnitTestSV.csproj.CoreCompileInputs.cache
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\obj\Debug\UnitTestSV.csproj.CopyComplete
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\obj\Debug\UnitTestSV.dll
+D:\báo cáo EPU\BaoCaoCNPM\SVMANAGERMENT\UnitTestSV\obj\Debug\UnitTestSV.pdb
