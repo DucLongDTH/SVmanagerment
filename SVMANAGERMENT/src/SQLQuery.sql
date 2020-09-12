@@ -1,0 +1,193 @@
+﻿--USE SVMANAGERMENT
+--GO
+
+--												[CREATE VIEW FOR DATAGRIDVIEW]
+------------- 1 TABLE CLASS CNPM1
+--Create View V_SVCNPM1 AS 
+--Select TOP(99.99) Percent 'Mã Sinh Viên' = MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Ngày Sinh'=  CONVERT(VARCHAR(10), NgaySinh , 103)  , 'Địa Chỉ' = DiaChi , 'SĐT' = SDT
+--From SinhVien
+--Where MaLop = 'CNPM1'
+--Order By TenSinhVien ASC
+--go
+--Select * from  V_SVCNPM1
+--drop view V_SVCNPM1
+
+------------ 2 TABLE CLASS CNPM2
+--Create View V_SVCNPM2 AS 
+--Select TOP(99.99) Percent 'Mã Sinh Viên' = MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Ngày Sinh'=  CONVERT(VARCHAR(10), NgaySinh , 103)  , 'Địa Chỉ' = DiaChi , 'SĐT' = SDT
+--From SinhVien
+--Where MaLop = 'CNPM2'
+--Order By TenSinhVien ASC
+--go
+--Select * from  V_SVCNPM2
+--drop view V_SVCNPM2
+
+------------ 3 TABLE CLASS NCQL
+--Create View V_SVNCQL AS 
+--Select TOP(99.99) Percent 'Mã Sinh Viên' = MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Ngày Sinh'=  CONVERT(VARCHAR(10), NgaySinh , 103)  , 'Địa Chỉ' = DiaChi , 'SĐT' = SDT
+--From SinhVien
+--Where MaLop = 'NCQL'
+--Order By TenSinhVien ASC
+--go
+--Select * from  V_SVNCQL
+--drop view V_SVNCQL
+
+----------- 4 TABLE CLASS QTDN
+--Create View V_SVQTDN AS 
+--Select TOP(99.99) Percent 'Mã Sinh Viên' = MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Ngày Sinh'=  CONVERT(VARCHAR(10), NgaySinh , 103)  , 'Địa Chỉ' = DiaChi , 'SĐT' = SDT
+--From SinhVien
+--Where MaLop = 'QTDN'
+--Order By TenSinhVien ASC
+--go
+--Select * from  V_SVQTDN
+--drop view V_SVQTDN
+
+--												[CREATE PROCEDURE SINHVIEN - CRUD]
+------------ 1 INSERT TABLE SINHVIEN & DIEM
+--		Create Procedure them_sv
+--	@masv char(20),
+--	@tensv nvarchar(15),
+--	@hodem nvarchar(30),
+--	@ngaysinh date,
+--	@diachi nvarchar(50),
+--	@malop char(10),
+--	@makhoa char(10),
+--	@sdt char(11)
+--AS
+--IF(@makhoa = 'CNTT')
+--	BEGIN
+--		INSERT INTO SinhVien(MASV,TenSinhVien,HoDem,NgaySinh,DiaChi,MaLop,SDT) 
+--		VALUES(@masv,@tensv,@hodem,@ngaysinh,@diachi,@malop,@sdt)
+--		INSERT INTO DiemThi(MASV,MaMH) VALUES (@masv,'CSDL')
+--		INSERT INTO DiemThi(MASV,MaMH) VALUES (@masv,'DEVC')
+--	END
+--ELSE IF(@makhoa = 'KHQL') 
+--	BEGIN 
+--		INSERT INTO SinhVien(MASV,TenSinhVien,HoDem,NgaySinh,DiaChi,MaLop,SDT) 
+--		VALUES(@masv,@tensv,@hodem,@ngaysinh,@diachi,@malop,@sdt)
+--		INSERT INTO DiemThi(MASV,MaMH) VALUES (@masv,'MAC')
+--	END
+--ELSE IF(@makhoa = 'QTKD')
+--	BEGIN
+--		INSERT INTO SinhVien(MASV,TenSinhVien,HoDem,NgaySinh,DiaChi,MaLop,SDT) 
+--		VALUES(@masv,@tensv,@hodem,@ngaysinh,@diachi,@malop,@sdt)
+--		INSERT INTO DiemThi(MASV,MaMH) VALUES (@masv,'KTL')
+--	END
+--GO
+--		EXEC them_sv '18001034','Quân','Phan ','2000-03-12','Hà Nội','CNPM1','CNTT','7447447440'
+--		EXEC them_sv '18001032','Nam','Phan Cao','2000-03-12','Hà Nội','QTDN','QTKD','7447447440'
+--		EXEC them_sv '18001033','Nam','Phan Cao','2000-03-12','Hà Nội','NCQL','KHQL','7447447440'
+--	Drop Procedure them_sv
+
+------------ 2 DELETE TABLE SINHVIEN & DIEM
+--		Create Procedure xoa_sv
+--@masv char(20)
+--AS
+--BEGIN
+--	Delete From DiemThi WHERE MASV = @masv
+--	Delete From SinhVien WHERE MASV= @masv
+--END
+--GO
+--EXEC xoa_sv '18001034'
+
+------------3 EDIT TABLE SINHVIEN 
+--CREATE PROCEDURE sua_sv
+--	@masv char(10),
+--	@tensv nvarchar(15),
+--	@hodem nvarchar(30),
+--	@ngaysinh date,
+--	@diachi nvarchar(50),
+--	@sdt char(11)
+--AS
+--BEGIN
+--	UPDATE SinhVien
+--	SET TenSinhVien=@tensv, HoDem= @hodem , NgaySinh = @ngaysinh , DiaChi = @diachi, SDT = @sdt
+--	WHERE MASV = @masv
+--END
+----Drop procedure sua_sv
+--EXEC sua_sv '18001034','Nam','Phan Cao','2000-03-11','HN', '113112114'
+
+------------4 SEARCH SINH VIEN
+--CREATE PROCEDURE tim_sv
+--	@tensv nvarchar(15),
+--	@malop char(10)
+--AS 
+--IF(@malop = 'CNPM1')
+--BEGIN 
+--	SELECT * FROM V_SVCNPM1 WHERE [Tên] like '%'+@tensv+'%'
+--END
+--ELSE IF(@malop = 'CNPM2')
+--BEGIN 
+--	SELECT * FROM V_SVCNPM2 WHERE [Tên] like '%'+@tensv+'%'
+--END
+--ELSE IF(@malop = 'NCQL')
+--BEGIN 
+--	SELECT * FROM V_SVNCQL WHERE [Tên] like '%'+@tensv+'%'
+--END
+--ELSE IF(@malop = 'QTDN')
+--BEGIN 
+--	SELECT * FROM V_SVQTDN WHERE [Tên] like '%'+@tensv+'%'
+--END
+
+------------------------------- [View For DiemThi]
+-- CNPM1
+	--CREATE VIEW cnpm1_devc AS
+	--Select Top (99.99) PERCENT 'Mã Sinh Viên' = SinhVien.MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Điểm lần 1' = DiemLan1,'Điểm Lần 2' =DiemLan2
+	--From SinhVien, DiemThi
+	--Where SinhVien.MASV = DiemThi.MASV And DiemThi.MaMH = 'DEVC' and SinhVien.MaLop = 'CNPM1'
+	--Group By SinhVien.MASV, SinhVien.HoDem, SinhVien.TenSinhVien , DiemThi.DiemLan1, DiemThi.DiemLan2
+	--Order By SinhVien.TenSinhVien ASC
+	--Select * From cnpm1_devc
+	--------------------------
+	--CREATE VIEW cnpm1_csdl AS
+	--Select Top (99.99) PERCENT 'Mã Sinh Viên' = SinhVien.MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Điểm lần 1' = DiemLan1,'Điểm Lần 2' =DiemLan2
+	--From SinhVien, DiemThi
+	--Where SinhVien.MASV = DiemThi.MASV And DiemThi.MaMH = 'CSDL' and SinhVien.MaLop = 'CNPM1'
+	--Group By SinhVien.MASV, SinhVien.HoDem, SinhVien.TenSinhVien , DiemThi.DiemLan1, DiemThi.DiemLan2
+	--Order By SinhVien.TenSinhVien ASC
+	--Select * From cnpm1_devc
+-- CNPM2
+	--CREATE VIEW cnpm2_devc AS
+	--Select Top (99.99) PERCENT 'Mã Sinh Viên' = SinhVien.MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Điểm lần 1' = DiemLan1,'Điểm Lần 2' =DiemLan2
+	--From SinhVien, DiemThi
+	--Where SinhVien.MASV = DiemThi.MASV And DiemThi.MaMH = 'DEVC' and SinhVien.MaLop = 'CNPM2'
+	--Group By SinhVien.MASV, SinhVien.HoDem, SinhVien.TenSinhVien , DiemThi.DiemLan1, DiemThi.DiemLan2
+	--Order By SinhVien.TenSinhVien ASC
+	--Select * From cnpm2_devc
+	--------------------------
+	--CREATE VIEW cnpm2_csdl AS
+	--Select Top (99.99) PERCENT 'Mã Sinh Viên' = SinhVien.MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Điểm lần 1' = DiemLan1,'Điểm Lần 2' =DiemLan2
+	--From SinhVien, DiemThi
+	--Where SinhVien.MASV = DiemThi.MASV And DiemThi.MaMH = 'CSDL' and SinhVien.MaLop = 'CNPM2'
+	--Group By SinhVien.MASV, SinhVien.HoDem, SinhVien.TenSinhVien , DiemThi.DiemLan1, DiemThi.DiemLan2
+	--Order By SinhVien.TenSinhVien ASC
+	--Select * From cnpm2_csdl
+-- NCQL
+	--CREATE VIEW ncql_mac AS
+	--Select Top (99.99) PERCENT 'Mã Sinh Viên' = SinhVien.MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Điểm lần 1' = DiemLan1,'Điểm Lần 2' =DiemLan2
+	--From SinhVien, DiemThi
+	--Where SinhVien.MASV = DiemThi.MASV And DiemThi.MaMH = 'MAC' and SinhVien.MaLop = 'NCQL'
+	--Group By SinhVien.MASV, SinhVien.HoDem, SinhVien.TenSinhVien , DiemThi.DiemLan1, DiemThi.DiemLan2
+	--Order By SinhVien.TenSinhVien ASC
+	--Select * From ncql_mac
+-- QTDN
+	--CREATE VIEW qtdn_ktl AS
+	--Select Top (99.99) PERCENT 'Mã Sinh Viên' = SinhVien.MASV , 'Họ Đệm' = HoDem , 'Tên' = TenSinhVien ,'Điểm lần 1' = DiemLan1,'Điểm Lần 2' =DiemLan2
+	--From SinhVien, DiemThi
+	--Where SinhVien.MASV = DiemThi.MASV And DiemThi.MaMH = 'KTL' and SinhVien.MaLop = 'QTDN'
+	--Group By SinhVien.MASV, SinhVien.HoDem, SinhVien.TenSinhVien , DiemThi.DiemLan1, DiemThi.DiemLan2
+	--Order By SinhVien.TenSinhVien ASC
+	--Select * From qtdn_ktl
+-------- [Procedure Sua Diem]
+	--CREATE PROCEDURE suadiem
+	--@masv char(10),
+	--@diem1 char(2),
+	--@diem2 char(2),
+	--@monhoc nvarchar(5)
+	--AS
+	--BEGIN
+	--	UPDATE DiemThi
+	--	SET DiemLan1 = @diem1, DiemLan2= @diem2
+	--	WHERE MASV = @masv AND MaMH =@monhoc
+	--END
+	--EXEC suadiem '18001000','3','7','DEVC'
